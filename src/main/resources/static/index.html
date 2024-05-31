@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Webcam Recording</title>
+    <script>
+        function startRecording() {
+            fetch('/start-recording', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('Recording started');
+                } else {
+                    console.log('Error starting recording');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function stopRecording() {
+            fetch('/stop-recording', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('Recording stopped');
+                } else {
+                    console.log('Error stopping recording');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function trimVideo() {
+            fetch('/trim-video', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log('Video trimmed successfully');
+                } else {
+                    console.log('Error trimming video');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <button onclick="startRecording()">Start Recording</button>
+    <button onclick="stopRecording()">Stop Recording</button>
+    <button onclick="trimVideo()">Trim Video</button>
+</body>
+</html>
